@@ -14,8 +14,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   orderProduct.init({
-    orderId: DataTypes.INTEGER,
-    productId: DataTypes.INTEGER
+    orderId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "orders",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    },
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "products",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    }
   }, {
     sequelize,
     modelName: 'orderProduct',

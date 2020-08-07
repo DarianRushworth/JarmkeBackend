@@ -14,8 +14,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   userFavorite.init({
-    productId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "products",
+        key: "id"
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key:"id"
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    }
   }, {
     sequelize,
     modelName: 'userFavorite',

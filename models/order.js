@@ -14,10 +14,28 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   order.init({
-    total: DataTypes.BIGINT,
-    userId: DataTypes.INTEGER,
-    expressShipping: DataTypes.BOOLEAN,
-    completed: DataTypes.BOOLEAN
+    total: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "SET NULL",
+    },
+    expressShipping: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    completed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'order',
