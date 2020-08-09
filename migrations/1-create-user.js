@@ -30,7 +30,7 @@ module.exports = {
         allowNull: false,
       },
       dateOfBirth: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
       },
       isOwner: {

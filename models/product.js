@@ -56,6 +56,9 @@ module.exports = (sequelize, DataTypes) => {
     image: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    stoneColor: {
+      type: DataTypes.STRING,
     }
   }, {
     sequelize,
