@@ -46,4 +46,4 @@ async function findUserFavorites(userId){
         console.log(error.message)
     }
 }
-findUserFavorites(2)
+// findUserFavorites(2)
