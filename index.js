@@ -2,9 +2,10 @@ const express = require("express")
 const loggerMiddleWare = require("morgan")
 const corsMiddleWare = require("cors")
 const { PORT } = require("./config/constants")
-const authRouter = require("./routers/auth")
 const authMiddleWare = require("./auth/middleware")
 
+const authRouter = require("./routers/auth")
+const productsRouter = require("./routers/productsPageRouter")
 
 const app = express()
 
@@ -20,6 +21,8 @@ if (process.env.DELAY) {
       setTimeout(() => next(), parseInt(process.env.DELAY))
     })
   }
+
+app.use(productsRouter)
 
 app.use("/", authRouter)
 

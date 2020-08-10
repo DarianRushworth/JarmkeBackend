@@ -24,8 +24,8 @@ router.post("/login", async (req, res, next) => {
         message: "User with that email not found or password incorrect"
       })
     }
-    // console.log("user test", user)
-    delete user.dataValues["password"] // don't send back the password hash
+    
+    delete user.dataValues["password"] 
     const token = toJWT({ userId: user.id })
     return res.status(200).send({ token, ...user.dataValues })
   } catch (error) {
@@ -47,7 +47,7 @@ router.post("/signup", async (req, res) => {
       name,
     })
 
-    delete newUser.dataValues["password"] // don't send back the password hash
+    delete newUser.dataValues["password"] 
 
     const token = toJWT({ userId: newUser.id })
 
@@ -62,5 +62,11 @@ router.post("/signup", async (req, res) => {
     return res.status(400).send({ message: "Something went wrong, sorry" })
   }
 })
+
+router.get("/me", authMiddleware, async (req, res) => {
+
+  delete req.user.dataValues["password"];
+  res.status(200).send({ ...req.user.dataValues });
+});
 
 module.exports = router
