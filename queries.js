@@ -6,10 +6,6 @@ const Product = require("./models").product
 // console.log("product test", Product)
 const Category = require("./models").category
 // console.log("category test", Category)
-const OrderProduct = require("./models").orderProduct
-// console.log("orderProducts test", OrderProduct)
-const UserFavorite = require("./models").userFavorite
-// console.log("userFavorites test", UserFavorite)
 
 async function findUsers(){
     try{

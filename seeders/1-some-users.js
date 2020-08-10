@@ -13,6 +13,7 @@ module.exports = {
           address: "oud-Loosdrechtsedijk 148 1231NE Loosdrecht",
           dateOfBirth: "1996-08-23",
           isOwner: true,
+          password: "KDog",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -25,6 +26,7 @@ module.exports = {
           address: "24 Ocean Village close 7441 Table View",
           dateOfBirth: "1996-08-06",
           isOwner: false,
+          password: "DDog",
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -37,6 +39,7 @@ module.exports = {
           address: "46 Almelo Drive 2271AD Almelo",
           dateOfBirth: "1993-08-24",
           isOwner: false,
+          password: "KDogM",
           createdAt: new Date(),
           updatedAt: new Date()
         }
