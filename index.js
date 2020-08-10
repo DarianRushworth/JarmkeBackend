@@ -6,6 +6,7 @@ const authMiddleWare = require("./auth/middleware")
 
 const authRouter = require("./routers/auth")
 const productsRouter = require("./routers/productsPageRouter")
+const favoriteProductRouter = require("./routers/favoritesRouter")
 
 const app = express()
 
@@ -23,6 +24,7 @@ if (process.env.DELAY) {
   }
 
 app.use(productsRouter)
+app.use(favoriteProductRouter)
 
 app.use("/", authRouter)
 
