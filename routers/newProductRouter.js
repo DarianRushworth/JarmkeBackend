@@ -5,6 +5,34 @@ const Products = require("../models").product
 
 const router = new Router()
 
+router.delete(
+    "/deleteProduct/:id",
+    authMiddleware,
+    async(req, res) => {
+        const owner = req.user.isOwner
+        console.log("owner test", owner)
+
+        const productIdNeeded = req.params.id
+        console.log("prduct Id:", productIdNeeded)
+
+        try{
+            const response = owner
+                                ? await Products.findOne({
+                                    where: {
+                                        id: productIdNeeded
+                                    }
+                                })
+                                : res.status(401).send("Sorry but you are not the Owner.")
+            // console.log("response test", response)
+            response.destroy()
+            res.status(202).send("Deletion successful.")
+
+        } catch(error){
+            console.log(error.message)
+        }
+    }
+)
+
 router.post(
     "/newProduct",
     authMiddleware,
