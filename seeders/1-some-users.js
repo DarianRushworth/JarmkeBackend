@@ -7,7 +7,6 @@ module.exports = {
     await queryInterface.bulkInsert(
       "users", [
         {
-          id: 1,
           firstName: "Kristina",
           lastName: "Matthews",
           email: "K.Jarmke@gmail.com",
@@ -20,7 +19,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 2,
           firstName: "Darian",
           lastName: "Rushworth",
           email: "darianerrolrushworth@gmail.com",
@@ -33,7 +31,6 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          id: 3,
           firstName: "Kevin",
           lastName: "Merdjan",
           email: "kevinMerdge@gmail.com",

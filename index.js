@@ -8,6 +8,7 @@ const authRouter = require("./routers/auth")
 const productsRouter = require("./routers/productsPageRouter")
 const favoriteProductRouter = require("./routers/favoritesRouter")
 const cartRouter = require("./routers/shoppingCartRouter")
+const newRouter = require("./routers/newProductRouter")
 
 const app = express()
 
@@ -27,6 +28,7 @@ if (process.env.DELAY) {
 app.use(productsRouter)
 app.use(favoriteProductRouter)
 app.use(cartRouter)
+app.use(newRouter)
 
 app.use("/", authRouter)
 

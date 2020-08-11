@@ -5,7 +5,6 @@ module.exports = {
     await queryInterface.bulkInsert(
       "products", [
         {
-          id: 1,
           title: "Depression Necklace 1",
           description: "Sterling Silver, Rutilated Quartz",
           price: 425,
@@ -17,7 +16,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 2,
           title: "Depression Necklace 2",
           description: "Sterling Silver, Grossular Garnet Beads",
           price: 120,
@@ -29,7 +27,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 3,
           title: "Depression Necklace 3",
           description: "Sterling Silver, 9ct & 18ct Gold Beads, Labradorite Beads",
           price: 400,
@@ -41,7 +38,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 4,
           title: "Depression Bangles",
           description: "1 Polished 18ct Gold and 4 Textured Brass",
           price: 1250,
@@ -53,7 +49,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 5,
           title: "Aniexty Necklace",
           description: "Sterling Silver Chain, 18ct Gold Twirls, Labradorite Beads",
           price: 650,
@@ -65,7 +60,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 6,
           title: "Aniexty Lego Block Bracelet",
           description: "Cast Sterling Silver Lego Block, Sterling Silver Chain",
           price: 90,
@@ -77,7 +71,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 7,
           title: "Aniexty Earrings",
           description: "Sterling Silver, Labradorite Beads",
           price: 190,
@@ -89,7 +82,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 8,
           title: "Fibromyalgia Necklace 1",
           description: "Sterling Silver, 9ct Gold Tube, Blue Topaz Setting",
           price: 400,
@@ -101,7 +93,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 9,
           title: "Fibromyalgia Necklace 3",
           description: "Sterling Silver, Amethyst",
           price: 180,
@@ -113,7 +104,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 10,
           title: "Fibromyalgia Earrings",
           description: "Sterling Silver Tubes, Synthetic Blue Sapphires, 9ct Gold Balls",
           price: 100,
@@ -125,7 +115,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 11,
           title: "Hearing Impairment Necklace",
           description: "Sterling Silver, 9ct Gold Beads",
           price: 350,
@@ -137,7 +126,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 12,
           title: "Hearing Impairment Dangle Earrings",
           description: "Sterling Silver, 9ct Gold Beads",
           price: 100,
@@ -149,7 +137,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 13,
           title: "Hearing Impairment Bracelet",
           description: "Sterling Silver, 9ct Gold Beads",
           price: 200,
@@ -161,7 +148,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 14,
           title: "Silver Stud Earrings",
           description: "Sterling Silver, Colored Synthetic Stone",
           price: 80,
@@ -174,7 +160,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 15,
           title: "Flower ring",
           description: "Sterling Silver, Chrysoprase Cabochon",
           price: 220,
