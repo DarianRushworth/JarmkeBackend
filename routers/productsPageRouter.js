@@ -30,16 +30,18 @@ router.get(
 
 router.get(
     "/products",
-    async(req, res) => {
+    async(req, res, next) => {
+        const limit = req.query.limit || 6
+        const offset = req.query.offset || 0
+
         try{
-            const response = await Products.findAll()
+            const response = await Products.findAndCountAll({limit, offset})
             // console.log("products test", response)
 
-            const sendProducts = response
-                                ? response
-                                : "Loading..."
-            
-            res.status(202).send(sendProducts)
+            .then((result) => res.status(202).send({
+                products: result.rows,
+                total: result.count
+            }))
 
         } catch(error){
             console.log(error.message)
