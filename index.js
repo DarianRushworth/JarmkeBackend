@@ -9,6 +9,7 @@ const productsRouter = require("./routers/productsPageRouter")
 const favoriteProductRouter = require("./routers/favoritesRouter")
 const cartRouter = require("./routers/shoppingCartRouter")
 const newRouter = require("./routers/newProductRouter")
+const contactRouter = require("./routers/ContactDetailsRouter")
 
 const app = express()
 
@@ -29,6 +30,7 @@ app.use(productsRouter)
 app.use(favoriteProductRouter)
 app.use(cartRouter)
 app.use(newRouter)
+app.use(contactRouter)
 
 app.use("/", authRouter)
 
