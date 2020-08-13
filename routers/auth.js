@@ -41,10 +41,10 @@ router.post("/signup", async (req, res) => {
     email,
     phone,
     address,
-    dateofBirth,
+    dateOfBirth,
     password
   } = req.body
-  if (!firstName || !lastName || !email || !phone || !address || !dateofBirth || !password) {
+  if (!firstName || !lastName || !email || !phone || !address || !dateOfBirth || !password) {
     return res.status(400).send("Please provide all the information.")
   }
 
