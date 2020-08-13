@@ -56,6 +56,7 @@ router.post("/signup", async (req, res) => {
       phone,
       address,
       dateofBirth,
+      isOwner: false,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
     })
 
