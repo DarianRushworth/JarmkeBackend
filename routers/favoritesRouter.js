@@ -2,7 +2,8 @@ const { Router } = require("express")
 
 const authMiddleWare = require("../auth/middleware")
 
-const UserFavorites = require("../models").userFavorite
+const User = require("../models").user
+const Product = require("../models").product
 
 const router = new Router
 
@@ -14,9 +15,10 @@ router.get(
         // console.log("(GET)id test user:", userIdNeeded)
 
         try{
-            const response = await UserFavorites.findAll({
+            const response = await User.findOne({
+                include: [Product],
                 where: {
-                    userId: userIdNeeded
+                    id: userIdNeeded
                 }
             })
             // console.log("response test", response)
