@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt")
 const { Router } = require("express")
 const { toJWT } = require("../auth/jwt")
 const authMiddleware = require("../auth/middleware")
-const User = require("../models/").user
+const User = require("../models").user
 const { SALT_ROUNDS } = require("../config/constants")
 
 const router = new Router()
@@ -47,21 +47,21 @@ router.post("/signup", async (req, res) => {
   if (!firstName || !lastName || !email || !phone || !address || !dateOfBirth || !password) {
     return res.status(400).send("Please provide all the information.")
   }
-
+  
   try {
+    console.log("did i get here", req.body)
     const newUser = await User.create({
       firstName,
       lastName,
       email,
       phone,
       address,
-      dateofBirth,
+      dateOfBirth,
       isOwner: false,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
     })
-
+    
     delete newUser.dataValues["password"] 
-
     const token = toJWT({ userId: newUser.id })
 
     res.status(201).json({ token, ...newUser.dataValues })
