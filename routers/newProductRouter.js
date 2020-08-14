@@ -10,7 +10,7 @@ router.delete(
     authMiddleware,
     async(req, res) => {
         const owner = req.user.isOwner
-        console.log("owner test", owner)
+        // console.log("owner test", owner)
 
         const productIdNeeded = req.params.id
         console.log("prduct Id:", productIdNeeded)
@@ -38,7 +38,7 @@ router.post(
     authMiddleware,
     async(req, res, next) => {
         const owner = req.user.isOwner
-        console.log("user details test", owner)
+        // console.log("user details test", owner)
 
         const {
             title,
@@ -54,7 +54,7 @@ router.post(
         const intUnitsInStock = parseInt(unitsInStock)
         const intCategoryId = parseInt(categoryId)
         const intPrice = parseInt(price)
-        console.log("body test", req.body)
+        // console.log("body test", req.body)
 
         try{
             const response = owner

@@ -12,7 +12,7 @@ router.get(
     authMiddleware,
     async(req, res) => {
         const orderIdNeeded = parseInt(req.params.id)
-        console.log("order id Needed", orderIdNeeded)
+        // console.log("order id Needed", orderIdNeeded)
 
         try{
             const orderedProducts = await Order.findOne({
@@ -21,7 +21,7 @@ router.get(
                     id: orderIdNeeded
                 }
             })
-            console.log("response test", orderedProducts)
+            // console.log("response test", orderedProducts)
             res.status(202).send(orderedProducts)
 
         } catch(error){
@@ -35,10 +35,10 @@ router.delete(
     authMiddleware,
     async(req, res) => {
         const orderIdNeeded = parseInt(req.params.id)
-        console.log("order id test:", orderIdNeeded)
+        // console.log("order id test:", orderIdNeeded)
 
         const productIdNeeded = parseInt(req.params.pId)
-        console.log("product id test:", productIdNeeded)
+        // console.log("product id test:", productIdNeeded)
 
         const userIdNeeded = req.user.id
 
@@ -49,7 +49,7 @@ router.delete(
                     productId: productIdNeeded,
                 }
             })
-            console.log("orderProducts test", orderProductRemoved)
+            // console.log("orderProducts test", orderProductRemoved)
 
             if(!orderProductRemoved){
                 res.status(404).send("Oops, something went wrong, refresh and try again.")
@@ -59,7 +59,7 @@ router.delete(
             // res.status(202).send("Deletion Successful")
 
             const product = await Products.findByPk(productIdNeeded)
-            console.log("found product price test", product.price)
+            // console.log("found product price test", product.price)
 
             const orderSpecifc = await Order.findOne({
                 include: [Products],
@@ -88,11 +88,11 @@ router.post(
         // console.log("(Cart)user id:", userIdNeeded)
 
         const orderNeeded = req.user.orders
-        console.log("here's the orders", orderNeeded)
+        // console.log("here's the orders", orderNeeded)
         
         
         const productIdNeeded = parseInt(req.params.id)
-        console.log("(Cart)product id:", productIdNeeded)
+        // console.log("(Cart)product id:", productIdNeeded)
         
 
         try{
@@ -105,8 +105,8 @@ router.post(
                                     expressShipping: false,
                                     completed: false,
                                 })
-            console.log("found order", locateOrder)
-            console.log("what should I do", createOrNot)
+            // console.log("found order", locateOrder)
+            // console.log("what should I do", createOrNot)
             
             const orderMade = await OrderProducts.create({
                 orderId: createOrNot.id,
@@ -118,7 +118,7 @@ router.post(
             const userOrder = await Order.findOne({
                 include: [Products],
                 where: {
-                    userId: userIdNeeded
+                    id: createOrNot.id
                 }
             })
 
