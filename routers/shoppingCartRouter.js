@@ -7,6 +7,29 @@ const Products = require("../models").product
 
 const router = new Router()
 
+router.get(
+    "/checkout/:id",
+    authMiddleware,
+    async(req, res) => {
+        const orderIdNeeded = parseInt(req.params.id)
+        console.log("order id Needed", orderIdNeeded)
+
+        try{
+            const orderedProducts = await Order.findOne({
+                include: [Products],
+                where:{
+                    id: orderIdNeeded
+                }
+            })
+            console.log("response test", orderedProducts)
+            res.status(202).send(orderedProducts)
+
+        } catch(error){
+            console.log(error)
+        }
+    }
+)
+
 router.delete(
     "/checkout/:id/product/:pId",
     authMiddleware,
@@ -33,7 +56,7 @@ router.delete(
             }
 
             orderProductRemoved.destroy()
-            res.status(202).send("Deletion Successful")
+            // res.status(202).send("Deletion Successful")
 
             const product = await Products.findByPk(productIdNeeded)
             console.log("found product price test", product.price)

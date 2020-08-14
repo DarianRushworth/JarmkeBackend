@@ -2,6 +2,7 @@ const User = require("../models").user;
 const { toData } = require("./jwt");
 
 async function auth(req, res, next) {
+  // console.log("do i get here", req)
   const auth =
     req.headers.authorization && req.headers.authorization.split(" ");
 
