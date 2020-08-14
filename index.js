@@ -27,7 +27,7 @@ if (process.env.DELAY) {
   }
 
 app.use(productsRouter)
-app.use(favoriteProductRouter)
+app.use("/favorites", favoriteProductRouter)
 app.use(cartRouter)
 app.use(newRouter)
 app.use(contactRouter)
