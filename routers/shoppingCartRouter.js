@@ -86,39 +86,48 @@ router.post(
     async(req, res) => {
         const userIdNeeded = req.user.id
         // console.log("(Cart)user id:", userIdNeeded)
+
+        const orderNeeded = req.user.orders
+        console.log("here's the orders", orderNeeded)
+        
         
         const productIdNeeded = parseInt(req.params.id)
         console.log("(Cart)product id:", productIdNeeded)
         
-        const ExpressShipping = req.body.expressShipping
-        const shipping = () => {
-            if(ExpressShipping === "true"){
-            return true
-        } else {
-            return false
-        }
-        }
-        console.log("expressShipping test", shipping())
-        
-        const Total = parseInt(req.body.total)
-        console.log("total test:", Total)
 
         try{
-            const orderMade = await Order.create({
-                total: Total,
-                userId: userIdNeeded,
-                expressShipping: shipping(),
-                completed: false,
-            })
-            // console.log("response test", orderMade)
-            res.status(202).send(orderMade)
-            console.log("orderId test", orderMade.id)
+            const locateOrder = orderNeeded.find(order => order.completed === false)
+            const createOrNot= locateOrder
+                                ? locateOrder
+                                : await Order.create({
+                                    total: 0,
+                                    userId: userIdNeeded,
+                                    expressShipping: false,
+                                    completed: false,
+                                })
+            console.log("found order", locateOrder)
+            console.log("what should I do", createOrNot)
             
-            const orderDocumented = await OrderProducts.create({
-                orderId: orderMade.id,
+            const orderMade = await OrderProducts.create({
+                orderId: createOrNot.id,
                 productId: productIdNeeded,
             })
-            res.status(202).send(orderDocumented)
+            // console.log("response test", orderMade)
+            const productOrdered = await Products.findByPk(productIdNeeded)
+
+            const userOrder = await Order.findOne({
+                include: [Products],
+                where: {
+                    userId: userIdNeeded
+                }
+            })
+
+            const orderRevised = await userOrder.increment("total", {by: productOrdered.price})
+            res.status(202).send({
+                order: orderRevised,
+                newIncart: userOrder
+            })
+            
 
         } catch(error){
             console.log(error.message)
