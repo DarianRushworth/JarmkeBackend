@@ -41,7 +41,7 @@ router.post(
     authMiddleWare,
     async(req, res, next) => {
         const userIdNeeded = req.user.id
-        console.log("id test user:", userIdNeeded)
+        // console.log("id test user:", userIdNeeded)
         const productIdNeeded = parseInt(req.params.id)
         // console.log("id test product:", productIdNeeded)
         try{
@@ -81,7 +81,7 @@ router.delete(
                     productId: productIdNeeded
                 }
             })
-            console.log("Individual favorite test", response)
+            // console.log("Individual favorite test", response)
 
             if(!response){
                 res.status(404).send("No Favorite matched your request.")
