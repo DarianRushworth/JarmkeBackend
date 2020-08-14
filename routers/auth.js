@@ -4,6 +4,7 @@ const { toJWT } = require("../auth/jwt")
 const authMiddleware = require("../auth/middleware")
 const User = require("../models").user
 const Order = require("../models").order
+const Product = require("../models").product
 const { SALT_ROUNDS } = require("../config/constants")
 
 const router = new Router()

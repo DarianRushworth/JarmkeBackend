@@ -62,13 +62,17 @@ router.delete(
             console.log("found product price test", product.price)
 
             const orderSpecifc = await Order.findOne({
+                include: [Products],
                 where: {
                     userId: userIdNeeded
                 }
             })
 
             const orderRevised = await orderSpecifc.decrement("total", { by: product.price})
-            res.status(202).send(orderRevised)
+            res.status(202).send({
+                order: orderRevised,
+                notInCart: orderSpecifc,
+            })
 
         } catch(error){
             console.log(error.message)
