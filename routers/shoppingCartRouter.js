@@ -4,6 +4,7 @@ const authMiddleware = require("../auth/middleware")
 const OrderProducts = require("../models").orderProduct
 const Order = require("../models").order
 const Products = require("../models").product
+const User = require("../models").user
 
 const router = new Router()
 
@@ -67,11 +68,18 @@ router.delete(
                     userId: userIdNeeded
                 }
             })
+            
+            const orderSubtract = await orderSpecifc.decrement("total", { by: product.price})
+            const orderChange = await orderSubtract.decrement("productAmount", {by: 1})
 
-            const orderRevised = await orderSpecifc.decrement("total", { by: product.price})
+            const updateUser = await User.findByPk(userIdNeeded,{
+                include: [Order]
+            })
+
             res.status(202).send({
-                order: orderRevised,
+                order: orderChange,
                 notInCart: orderSpecifc,
+                user: updateUser
             })
 
         } catch(error){
