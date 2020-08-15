@@ -4,8 +4,91 @@ const authMiddleware = require("../auth/middleware")
 const OrderProducts = require("../models").orderProduct
 const Order = require("../models").order
 const Products = require("../models").product
+const User = require("../models").user
 
 const router = new Router()
+
+router.patch(
+    "/updateAddress",
+    authMiddleware,
+    async(req, res) => {
+        const userIdNeeded = req.user.id
+        console.log("user id:", userIdNeeded)
+
+        const newAddress = req.body.shippingAddress
+
+        try{
+            const updateOrder = await Order.update({
+                shippingAddress: newAddress
+            },{
+                where: {
+                    userId: userIdNeeded,
+                    completed: false,
+                }
+            })
+            console.log(updateOrder)
+            res.status(202).send("Address Updated")
+
+        } catch(error){
+            console.log(error.message)
+        }
+    }
+)
+
+router.patch(
+    "/checkout/updateCart",
+    authMiddleware,
+    async(req, res) => {
+        const userIdNeeded = req.user.id
+        // console.log("(updateCART)user id:", userIdNeeded)
+        
+        const orders = req.user.orders
+        // console.log("user's orders", orders)
+
+
+        const shipping = req.body.expressShipping === "true"
+                        ? true
+                        : false
+        // console.log("body request test", shipping)
+
+        try{
+            const orderNeeded = await Order.findOne({
+                include: [Products],
+                where: {
+                    userId: userIdNeeded,
+                    completed: false
+                }
+            })
+            // console.log("one object test", orderNeeded)
+
+            const orderUpdate = await Order.update({
+                expressShipping: shipping
+            },{
+                where: {
+                    id: orderNeeded.id,
+                    completed: false,
+                }
+            })
+            // console.log("shipping updated test", orderUpdate)
+
+            const orderTotalRevised = await orderNeeded.increment("total", {by: 50})
+            console.log("total increase test", orderTotalRevised)
+
+            const updateUser = await User.findByPk(userIdNeeded,{
+                include: [Order]
+            })
+            console.log("updated user test", updateUser)
+
+            res.status(202).send({
+                user: updateUser,
+                order: orderTotalRevised,
+            })
+
+        } catch(error){
+            console.log(error.message)
+        }
+    }
+)
 
 router.get(
     "/checkout/:id",
@@ -40,6 +123,7 @@ router.delete(
         const productIdNeeded = parseInt(req.params.pId)
         // console.log("product id test:", productIdNeeded)
 
+
         const userIdNeeded = req.user.id
 
         try{
@@ -64,14 +148,22 @@ router.delete(
             const orderSpecifc = await Order.findOne({
                 include: [Products],
                 where: {
-                    userId: userIdNeeded
+                    userId: userIdNeeded,
+                    completed: false,
                 }
             })
+            
+            const orderSubtract = await orderSpecifc.decrement("total", { by: product.price})
+            const orderChange = await orderSubtract.decrement("productAmount", {by: 1})
 
-            const orderRevised = await orderSpecifc.decrement("total", { by: product.price})
+            const updateUser = await User.findByPk(userIdNeeded,{
+                include: [Order]
+            })
+
             res.status(202).send({
-                order: orderRevised,
+                order: orderChange,
                 notInCart: orderSpecifc,
+                user: updateUser
             })
 
         } catch(error){
@@ -102,7 +194,9 @@ router.post(
                                 : await Order.create({
                                     total: 0,
                                     userId: userIdNeeded,
+                                    productAmount: 0,
                                     expressShipping: false,
+                                    shippingAddress: "User Address",
                                     completed: false,
                                 })
             // console.log("found order", locateOrder)
@@ -123,9 +217,16 @@ router.post(
             })
 
             const orderRevised = await userOrder.increment("total", {by: productOrdered.price})
+            const productRevised = await orderRevised.increment("productAmount", {by: 1})
+
+            const updateUser = await User.findByPk(userIdNeeded,{
+                include: [Order]
+            })
+
             res.status(202).send({
-                order: orderRevised,
-                newIncart: userOrder
+                order: productRevised,
+                newIncart: userOrder,
+                user: updateUser
             })
             
 
