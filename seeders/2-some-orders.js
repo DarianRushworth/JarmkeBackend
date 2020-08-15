@@ -7,6 +7,7 @@ module.exports = {
         {
           total: 300,
           userId: 2,
+          productAmount: 2,
           expressShipping: true,
           completed: true,
           createdAt: new Date(),
@@ -15,6 +16,7 @@ module.exports = {
         {
           total: 960,
           userId: 3,
+          productAmount: 3,
           expressShipping: false,
           completed: false,
           createdAt: new Date(),

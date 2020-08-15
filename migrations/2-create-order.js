@@ -22,6 +22,10 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
       },
+      productAmount: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       expressShipping: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
