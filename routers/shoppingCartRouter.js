@@ -41,6 +41,8 @@ router.delete(
         const productIdNeeded = parseInt(req.params.pId)
         // console.log("product id test:", productIdNeeded)
 
+        const orderNeeded = req.user.orders
+
         const userIdNeeded = req.user.id
 
         try{
@@ -65,7 +67,8 @@ router.delete(
             const orderSpecifc = await Order.findOne({
                 include: [Products],
                 where: {
-                    userId: userIdNeeded
+                    userId: userIdNeeded,
+                    completed: false,
                 }
             })
             
@@ -110,6 +113,7 @@ router.post(
                                 : await Order.create({
                                     total: 0,
                                     userId: userIdNeeded,
+                                    productAmount: 0,
                                     expressShipping: false,
                                     completed: false,
                                 })
@@ -131,9 +135,16 @@ router.post(
             })
 
             const orderRevised = await userOrder.increment("total", {by: productOrdered.price})
+            const productRevised = await orderRevised.increment("productAmount", {by: 1})
+
+            const updateUser = await User.findByPk(userIdNeeded,{
+                include: [Order]
+            })
+
             res.status(202).send({
-                order: orderRevised,
-                newIncart: userOrder
+                order: productRevised,
+                newIncart: userOrder,
+                user: updateUser
             })
             
 
