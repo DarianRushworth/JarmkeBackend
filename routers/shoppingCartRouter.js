@@ -8,6 +8,61 @@ const User = require("../models").user
 
 const router = new Router()
 
+router.patch(
+    "/checkout/updateCart",
+    authMiddleware,
+    async(req, res) => {
+        const userIdNeeded = req.user.id
+        // console.log("(updateCART)user id:", userIdNeeded)
+        
+        const orders = req.user.orders
+        // console.log("user's orders", orders)
+
+
+        const shipping = req.body.expressShipping === "true"
+                        ? true
+                        : false
+        // console.log("body request test", shipping)
+
+        try{
+            const orderNeeded = await Order.findOne({
+                include: [Products],
+                where: {
+                    userId: userIdNeeded,
+                    completed: false
+                }
+            })
+            // console.log("one object test", orderNeeded)
+
+            const orderUpdate = await Order.update({
+                expressShipping: shipping
+            },{
+                where: {
+                    id: orderNeeded.id,
+                    completed: false,
+                }
+            })
+            // console.log("shipping updated test", orderUpdate)
+
+            const orderTotalRevised = await orderNeeded.increment("total", {by: 50})
+            console.log("total increase test", orderTotalRevised)
+
+            const updateUser = await User.findByPk(userIdNeeded,{
+                include: [Order]
+            })
+            console.log("updated user test", updateUser)
+
+            res.status(202).send({
+                user: updateUser,
+                order: orderTotalRevised,
+            })
+
+        } catch(error){
+            console.log(error.message)
+        }
+    }
+)
+
 router.get(
     "/checkout/:id",
     authMiddleware,
@@ -41,7 +96,6 @@ router.delete(
         const productIdNeeded = parseInt(req.params.pId)
         // console.log("product id test:", productIdNeeded)
 
-        const orderNeeded = req.user.orders
 
         const userIdNeeded = req.user.id
 
