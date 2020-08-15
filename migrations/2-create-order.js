@@ -30,6 +30,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      shippingAddress: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       completed: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

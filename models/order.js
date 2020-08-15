@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+    shippingAddress: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     completed: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

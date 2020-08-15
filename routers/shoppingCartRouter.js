@@ -9,6 +9,33 @@ const User = require("../models").user
 const router = new Router()
 
 router.patch(
+    "/updateAddress",
+    authMiddleware,
+    async(req, res) => {
+        const userIdNeeded = req.user.id
+        console.log("user id:", userIdNeeded)
+
+        const newAddress = req.body.shippingAddress
+
+        try{
+            const updateOrder = await Order.update({
+                shippingAddress: newAddress
+            },{
+                where: {
+                    userId: userIdNeeded,
+                    completed: false,
+                }
+            })
+            console.log(updateOrder)
+            res.status(202).send("Address Updated")
+
+        } catch(error){
+            console.log(error.message)
+        }
+    }
+)
+
+router.patch(
     "/checkout/updateCart",
     authMiddleware,
     async(req, res) => {
@@ -169,6 +196,7 @@ router.post(
                                     userId: userIdNeeded,
                                     productAmount: 0,
                                     expressShipping: false,
+                                    shippingAddress: "User Address",
                                     completed: false,
                                 })
             // console.log("found order", locateOrder)
