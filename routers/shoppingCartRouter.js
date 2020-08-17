@@ -27,7 +27,16 @@ router.patch(
                 }
             })
             console.log(updateOrder)
-            res.status(202).send("Address Updated")
+            
+            const sendUpdateOrder = await Order.findOne({
+                include: [Products],
+                where: {
+                    userId: userIdNeeded,
+                    shippingAddress: newAddress,
+                    completed: false,
+                }
+            })
+            res.status(202).send(sendUpdateOrder)
 
         } catch(error){
             console.log(error.message)
@@ -60,7 +69,25 @@ router.patch(
                 }
             })
             // console.log("one object test", orderNeeded)
+            
+            if(shipping === false && orderNeeded.expressShipping === false){
+                res.status(202).send(orderNeeded)
+            } else if(shipping === false && orderNeeded.expressShipping === true){
+                const reviseOrder = await orderNeeded.update({
+                    expressShipping: shipping
+                })
 
+                const minusShipping = await orderNeeded.decrement("total", {by: 50})
+
+                const updateUser = await User.findByPk(userIdNeeded,{
+                    include: [Order]
+                })
+
+                res.status(202).send({
+                    user: updateUser,
+                    order: minusShipping,
+                })
+            } else {
             const orderUpdate = await Order.update({
                 expressShipping: shipping
             },{
@@ -83,6 +110,7 @@ router.patch(
                 user: updateUser,
                 order: orderTotalRevised,
             })
+        }
 
         } catch(error){
             console.log(error.message)
