@@ -9,7 +9,7 @@ const UserFavorites = require("../models").userFavorite
 const router = new Router()
 
 router.get(
-    "/",
+    "/fav",
     authMiddleWare,
     async(req, res) => {
         const userIdNeeded = parseInt(req.user.id)
