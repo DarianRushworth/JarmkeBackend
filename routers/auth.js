@@ -80,11 +80,17 @@ router.post("/signup", async (req, res) => {
   }
 })
 
-router.get("/user", authMiddleware, async (req, res) => {
+router.get(
+  "/user", 
+  authMiddleware, 
+  async (req, res) => {
   // don't send back the password hash
   delete req.user.dataValues["password"];
   console.log("user", req.user)
   res.status(200).send({ ...req.user.dataValues});
+  if(!req.user){
+    res.status(404).send("User is unauthorized, Login/Sign-up to continue.")
+  }
 });
 
 module.exports = router
