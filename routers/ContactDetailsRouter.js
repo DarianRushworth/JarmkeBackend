@@ -8,12 +8,15 @@ router.get(
     "/me",
     async(req, res) => {
         try{
-            const response = await User.findOne({
+            const user = await User.findOne({
                 where: {
                     isOwner: true
                 }
             })
-            res.status(202).send(response)
+            if(!user){
+                res.status(404).send("Owner details no found, check Owner details.")
+            }
+            res.status(202).send(user)
 
         } catch(error){
             console.log(error.message)
