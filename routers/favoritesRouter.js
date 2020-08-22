@@ -14,6 +14,9 @@ router.get(
     async(req, res) => {
         const userIdNeeded = parseInt(req.user.id)
         // console.log("(GET)id test user:", userIdNeeded)
+        if(!userIdNeeded){
+            res.status(401).send("Sorry you are unauthorized, Login/Sign-up to authorize yourself")
+        }
 
         try{
             const user = await User.findOne({
@@ -42,7 +45,10 @@ router.post(
     async(req, res, next) => {
         const userIdNeeded = req.user.id
         // console.log("id test user:", userIdNeeded)
-        
+        if(!userIdNeeded){
+            res.status(401).send("Sorry you are unauthorized, Login/Sign-up to authorize yourself")
+        }
+
         const productIdNeeded = parseInt(req.params.id)
         // console.log("id test product:", productIdNeeded)
 
@@ -75,6 +81,9 @@ router.delete(
     async(req, res) => {
         const userIdNeeded = req.user.id
         // console.log("(Delete)id test user:", userIdNeeded)
+        if(!userIdNeeded){
+            res.status(401).send("Sorry you are unauthorized, Login/Sign-up to authorize yourself")
+        }
         
         const productIdNeeded = parseInt(req.params.id)
         // console.log("(Delete)id test product:", productIdNeeded)

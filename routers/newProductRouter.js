@@ -11,6 +11,9 @@ router.delete(
     async(req, res) => {
         const owner = req.user.isOwner
         // console.log("owner test", owner)
+        if(!owner){
+            res.status(401).send("Sorry you are not the owner, only the Owner can gain access")
+        }
 
         const productIdNeeded = req.params.id
         // console.log("prduct Id:", productIdNeeded)
@@ -40,6 +43,9 @@ router.post(
     async(req, res, next) => {
         const owner = req.user.isOwner
         // console.log("user details test", owner)
+        if(!owner){
+            res.status(401).send("Sorry you are not the owner, only the Owner can gain access")
+        }
 
         const {
             title,
