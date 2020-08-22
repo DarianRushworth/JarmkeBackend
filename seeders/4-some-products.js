@@ -6,7 +6,9 @@ module.exports = {
       "products", [
         {
           title: "Depression Necklace 1",
-          description: "Sterling Silver, Rutilated Quartz",
+          description: `In this range I reflect on the heavy weighted feeling depression casts. By adding weight to these pieces
+          it can simulate a weighed down feeling.
+          Sterling Silver, Rutilated Quartz`,
           price: 425,
           categoryId: 1,
           unitsInStock: 1,
@@ -17,7 +19,9 @@ module.exports = {
         },
         {
           title: "Depression Necklace 2",
-          description: "Sterling Silver, Grossular Garnet Beads",
+          description: `In this range I reflect on the heavy weighted feeling depression casts. By adding weight to these pieces
+          it can simulate a weighed down feeling.
+          Sterling Silver, Grossular Garnet Beads`,
           price: 120,
           categoryId: 1,
           unitsInStock: 0,
@@ -28,7 +32,9 @@ module.exports = {
         },
         {
           title: "Depression Necklace 3",
-          description: "Sterling Silver, 9ct & 18ct Gold Beads, Labradorite Beads",
+          description: `In this range I reflect on the heavy weighted feeling depression casts. By adding weight to these pieces
+          it can simulate a weighed down feeling.
+          Sterling Silver, 9ct & 18ct Gold Beads, Labradorite Beads`,
           price: 400,
           categoryId: 1,
           unitsInStock: 1,
@@ -39,7 +45,9 @@ module.exports = {
         },
         {
           title: "Depression Bangles",
-          description: "1 Polished 18ct Gold and 4 Textured Brass",
+          description: `In this range I reflect on the heavy weighted feeling depression casts. By adding weight to these pieces
+          it can simulate a weighed down feeling.
+          1 Polished 18ct Gold and 4 Textured Brass`,
           price: 1250,
           categoryId: 3,
           unitsInStock: 1,
@@ -50,7 +58,10 @@ module.exports = {
         },
         {
           title: "Aniexty Necklace",
-          description: "Sterling Silver Chain, 18ct Gold Twirls, Labradorite Beads",
+          description: `This range was inspired by the chaotic
+          and anxious feeling of aniexty. I aimed to create jewellery pieces that 
+          feel busy and almost out of your control.
+          Sterling Silver Chain, 18ct Gold Twirls, Labradorite Beads`,
           price: 650,
           categoryId: 1,
           unitsInStock: 0,
@@ -61,7 +72,10 @@ module.exports = {
         },
         {
           title: "Aniexty Lego Block Bracelet",
-          description: "Cast Sterling Silver Lego Block, Sterling Silver Chain",
+          description: `This range was inspired by the chaotic
+          and anxious feeling of aniexty. I aimed to create jewellery pieces that 
+          feel busy and almost out of your control.
+          Cast Sterling Silver Lego Block, Sterling Silver Chain`,
           price: 90,
           categoryId: 3,
           unitsInStock: 2,
@@ -72,7 +86,10 @@ module.exports = {
         },
         {
           title: "Aniexty Earrings",
-          description: "Sterling Silver, Labradorite Beads",
+          description: `This range was inspired by the chaotic
+          and anxious feeling of aniexty. I aimed to create jewellery pieces that 
+          feel busy and almost out of your control.
+          Sterling Silver, Labradorite Beads`,
           price: 190,
           categoryId: 2,
           unitsInStock: 0,
@@ -83,7 +100,10 @@ module.exports = {
         },
         {
           title: "Fibromyalgia Necklace 1",
-          description: "Sterling Silver, 9ct Gold Tube, Blue Topaz Setting",
+          description: `Inspired from my own personal story. I wanted to create pieces
+          that help the wearer understand what it's like to deal with this condition
+          on a daily basis, through the movement of the jewellery pieces.
+          Sterling Silver, 9ct Gold Tube, Blue Topaz Setting`,
           price: 400,
           categoryId: 1,
           unitsInStock: 1,
@@ -94,7 +114,10 @@ module.exports = {
         },
         {
           title: "Fibromyalgia Necklace 3",
-          description: "Sterling Silver, Amethyst",
+          description: `Inspired from my own personal story. I wanted to create pieces
+          that help the wearer understand what it's like to deal with this condition
+          on a daily basis, through the movement of the jewellery pieces.
+          Sterling Silver, Amethyst`,
           price: 180,
           categoryId: 1,
           unitsInStock: 1,
@@ -105,7 +128,10 @@ module.exports = {
         },
         {
           title: "Fibromyalgia Earrings",
-          description: "Sterling Silver Tubes, Synthetic Blue Sapphires, 9ct Gold Balls",
+          description: `Inspired from my own personal story. I wanted to create pieces
+          that help the wearer understand what it's like to deal with this condition
+          on a daily basis, through the movement of the jewellery pieces.
+          Sterling Silver Tubes, Synthetic Blue Sapphires, 9ct Gold Balls`,
           price: 100,
           categoryId: 2,
           unitsInStock: 1,
@@ -116,7 +142,10 @@ module.exports = {
         },
         {
           title: "Hearing Impairment Necklace",
-          description: "Sterling Silver, 9ct Gold Beads",
+          description: `Inspired by my boyfriend's sister,
+          Chloe and some of Chloe's doodles and drawings. The pieces and shapes for 
+          this collection are also a metephor for Chloe in her own happy bubble.
+          Sterling Silver, 9ct Gold Beads`,
           price: 350,
           categoryId: 1,
           unitsInStock: 1,
@@ -127,7 +156,10 @@ module.exports = {
         },
         {
           title: "Hearing Impairment Dangle Earrings",
-          description: "Sterling Silver, 9ct Gold Beads",
+          description: `Inspired by my boyfriend's sister,
+          Chloe and some of Chloe's doodles and drawings. The pieces and shapes for 
+          this collection are also a metephor for Chloe in her own happy bubble.
+          Sterling Silver, 9ct Gold Beads`,
           price: 100,
           categoryId: 2,
           unitsInStock: 0,
@@ -138,7 +170,10 @@ module.exports = {
         },
         {
           title: "Hearing Impairment Bracelet",
-          description: "Sterling Silver, 9ct Gold Beads",
+          description: `Inspired by my boyfriend's sister,
+          Chloe and some of Chloe's doodles and drawings. The pieces and shapes for 
+          this collection are also a metephor for Chloe in her own happy bubble.
+          Sterling Silver, 9ct Gold Beads`,
           price: 200,
           categoryId: 3,
           unitsInStock: 0,
