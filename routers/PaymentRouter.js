@@ -12,12 +12,19 @@ router.patch(
     authMiddleWare,
     async(req, res) => {
         const userIdNeeded = req.user.id
+        if(!userIdNeeded){
+            res.status(401).send("Sorry you are not authorized, Login/Sign-up to authorize yourself.")
+        }
 
         const { amount } = req.body
         const intAmount = parseInt(amount)
+        if(!amount){
+            res.status(400).send("The total amount wasn't calculated correctly please refresh and try again.")
+        }
 
         const com = true
-        console.log("com test", com)
+        // console.log("com test", com)
+
         try{
             const orderUpdate = await Order.update({
                 completed: com,
@@ -28,11 +35,17 @@ router.patch(
                     completed: false,
                 }
             })
-            console.log("LETS SEE", orderUpdate)
+            // console.log("LETS SEE", orderUpdate)
+            if(!orderUpdate){
+                res.status(400).send("Your Order couldn't be completed, please check your account and retry.")
+            }
 
             const updatedUser = await User.findByPk(userIdNeeded,{
                 include: [Order],
             })
+            if(!updatedUser){
+                res.status(404).send("User couldn't be found, please refresh, login and retry.")
+            }
 
             res.status(202).send(updatedUser)
 
@@ -47,8 +60,14 @@ router.post(
     authMiddleWare,
     async(req, res) => {
         const userIdNeeded = req.user.id
+        if(!userIdNeeded){
+            res.status(401).send("Sorry you are not authorized, Login/Sign-up to authorize youself.")
+        }
 
         const { amount, currency } = req.body
+        if(!amount || !currency){
+            res.status(400).send("Amount or currency wasn't specified, refresh and try again.")
+        }
 
         const amountInt = parseInt(amount)
 
@@ -58,7 +77,10 @@ router.post(
                 currency,
                 metadata: {integration_check: 'accept_a_payment'},
             })
-            console.log("what happened here", intent)
+            // console.log("what happened here", intent)
+            if(!intent){
+                res.status(400).send("Payment rejected, amount/currency wasn't converted correctly/ stripe payments is down.")
+            }
 
             const newOrder = await Order.create({
                 total: 0,
@@ -68,7 +90,10 @@ router.post(
                 shippingAddress: "User Address",
                 completed: false,
             })
-            console.log("LETS NEW", newOrder)
+            // console.log("LETS NEW", newOrder)
+            if(!newOrder){
+                res.status(400).send("A new order couldn't be made, please add a product to your cart to add new order.")
+            }
 
             res.status(202).send({
                 order: newOrder,
