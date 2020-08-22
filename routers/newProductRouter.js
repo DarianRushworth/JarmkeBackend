@@ -13,18 +13,19 @@ router.delete(
         // console.log("owner test", owner)
 
         const productIdNeeded = req.params.id
-        console.log("prduct Id:", productIdNeeded)
+        // console.log("prduct Id:", productIdNeeded)
 
         try{
-            const response = owner
-                                ? await Products.findOne({
-                                    where: {
-                                        id: productIdNeeded
-                                    }
-                                })
+            const whatToDo = owner
+                                ? await Products.findByPk(productIdNeeded)
                                 : res.status(401).send("Sorry but you are not the Owner.")
-            // console.log("response test", response)
-            response.destroy()
+            // console.log("response test", whatToDo)
+            
+            if(!whatToDo){
+                res.status(404).send("No product matched that information, refresh and try again.")
+            }
+
+            whatToDo.destroy()
             res.status(202).send("Deletion successful.")
 
         } catch(error){
@@ -57,7 +58,12 @@ router.post(
         // console.log("body test", req.body)
 
         try{
-            const response = owner
+
+            if(!title || ! description || !price || !categoryId || !unitsInStock || !metal || !image){
+                res.status(400).send("Please enter valid; Title, Description, Price, category, Units In Stock, Metal and Image")
+            }
+
+            const whatToDo = owner
                                 ? await Products.create({
                                     title,
                                     description,
@@ -70,7 +76,12 @@ router.post(
                                 })
                                 : res.status(401).send("Sorry but you are not the Owner.")
             // console.log("response test", response)
-            res.status(202).send(response)
+
+            if(!whatToDo){
+                res.status(400).send("Product couldn't be created, refresh and try again.")
+            }
+            
+            res.status(202).send(whatToDo)
 
         } catch(error){
             console.log("This is error", error.message)
