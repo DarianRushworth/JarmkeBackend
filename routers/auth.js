@@ -4,7 +4,6 @@ const { toJWT } = require("../auth/jwt")
 const authMiddleware = require("../auth/middleware")
 const User = require("../models").user
 const Order = require("../models").order
-const Product = require("../models").product
 const { SALT_ROUNDS } = require("../config/constants")
 
 const router = new Router()
@@ -49,7 +48,7 @@ router.post("/signup", async (req, res) => {
     password
   } = req.body
   if (!firstName || !lastName || !email || !phone || !address || !dateOfBirth || !password) {
-    return res.status(400).send("Please provide all the information.")
+    return res.status(400).send("Please provide all relevant information.")
   }
   
   try {
