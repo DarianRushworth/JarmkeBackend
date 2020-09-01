@@ -2,7 +2,7 @@ require("dotenv").config()
 
 module.exports = {
   "development": {
-    "url": "postgres://lsxxpsuv:rZ-aEuqCZaVYGQqJrD4uAQ127JuouQGZ@kandula.db.elephantsql.com:5432/lsxxpsuv",
+    "url": process.env.DATABASE_URL,
     "dialect": "postgres",
     "operatorsAliases": "0"
   },
