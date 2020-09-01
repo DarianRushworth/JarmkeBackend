@@ -17,7 +17,7 @@ router.get(
             // console.log("response test", response)
 
             const sendProduct = product
-                                ? res.status(202).send(sendProduct)
+                                ? res.status(202).send(product)
                                 : res.status(404).send("The product you are looking for has dissappeared, we are working on it")
             
 
