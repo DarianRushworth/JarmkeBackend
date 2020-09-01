@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 module.exports = {
   "development": {
     "url": "postgres://lsxxpsuv:rZ-aEuqCZaVYGQqJrD4uAQ127JuouQGZ@kandula.db.elephantsql.com:5432/lsxxpsuv",
