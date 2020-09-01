@@ -8,19 +8,18 @@ router.get(
     "/products/:id",
     async(req, res) => {
         const idNeeded = parseInt(req.params.id)
+        if(!idNeeded){
+            res.status(400).send("Couldn't pick up the product ID, please refresh and try again.")
+        }
+
         try{
-            const response = await Products.findByPk(idNeeded)
+            const product = await Products.findByPk(idNeeded)
             // console.log("response test", response)
 
-            if(!response){
-                res.status(404).send("The product you are looking for has dissappeared, we are working on it")
-            }
-
-            const sendProduct = response
-                                ? response
-                                : "Loading..."
+            const sendProduct = product
+                                ? res.status(202).send(product)
+                                : res.status(404).send("The product you are looking for has dissappeared, we are working on it")
             
-            res.status(202).send(sendProduct)
 
         } catch(error){
             console.log(error.message)
@@ -30,16 +29,23 @@ router.get(
 
 router.get(
     "/products",
-    async(req, res) => {
-        try{
-            const response = await Products.findAll()
-            // console.log("products test", response)
+    async(req, res, next) => {
+        const limit = req.query.limit || 6
+        const offset = req.query.offset || 0
 
-            const sendProducts = response
-                                ? response
-                                : "Loading..."
+        try{
+            const products = await Products.findAndCountAll({limit, offset})
+            // console.log("products test", products)
+
+            .then((result) => res.status(202).send({
+                products: result.rows,
+                total: result.count
+            }))
             
-            res.status(202).send(sendProducts)
+            if(!products){
+                res.status(404).send("Products couldn't be found, please refresh and try again.")
+            }
+
 
         } catch(error){
             console.log(error.message)

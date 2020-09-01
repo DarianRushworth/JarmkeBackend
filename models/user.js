@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
     },
     phone: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     address: {

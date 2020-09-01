@@ -32,8 +32,16 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "CASCADE",
       onDelete: "SET NULL",
     },
+    productAmount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     expressShipping: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    shippingAddress: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     completed: {
