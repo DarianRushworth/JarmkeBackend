@@ -67,7 +67,7 @@ router.post("/signup", async (req, res) => {
     delete newUser.dataValues["password"] 
     const token = toJWT({ userId: newUser.id })
 
-    res.status(201).json({ token, ...newUser.dataValues })
+    res.status(201).send({ token, ...newUser.dataValues })
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return res
