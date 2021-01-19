@@ -40,6 +40,19 @@ router.patch(
                 res.status(400).send("Your Order couldn't be completed, please check your account and retry.")
             }
 
+            const newOrder = await Order.create({
+                total: 0,
+                userId: userIdNeeded,
+                productAmount: 0,
+                expressShipping: false,
+                shippingAddress: "User Address",
+                completed: false,
+            })
+            // console.log("LETS NEW", newOrder)
+            if(!newOrder){
+                res.status(400).send("A new order couldn't be made, please add a product to your cart to add new order.")
+            }
+
             const updatedUser = await User.findByPk(userIdNeeded,{
                 include: [Order],
             })
@@ -82,21 +95,7 @@ router.post(
                 res.status(400).send("Payment rejected, amount/currency wasn't converted correctly/ stripe payments is down.")
             }
 
-            const newOrder = await Order.create({
-                total: 0,
-                userId: userIdNeeded,
-                productAmount: 0,
-                expressShipping: false,
-                shippingAddress: "User Address",
-                completed: false,
-            })
-            // console.log("LETS NEW", newOrder)
-            if(!newOrder){
-                res.status(400).send("A new order couldn't be made, please add a product to your cart to add new order.")
-            }
-
             res.status(202).send({
-                order: newOrder,
                 client_secret: intent.client_secret
             })
 
