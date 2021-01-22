@@ -1,5 +1,6 @@
 const { Router } = require("express")
 const stripe = require("stripe")("sk_test_51HGVaXE1l9Lb6wo5H7uIVCZzU63MKDYH9MAyPYyO5jwDgNm97bOicV4vOAcsOsuaW5vZPTnl6x4K6dDHILcqZySP00s7vIArU4")
+const nodemailer = require("nodemailer")
 
 const Order = require("../models").order
 const User = require("../models").user
@@ -60,6 +61,34 @@ router.patch(
                 res.status(404).send("User couldn't be found, please refresh, login and retry.")
             }
 
+            const transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 465,
+                secure: true,
+                auth: {
+                    user: "K.Jarmke@gmail.com",
+                    pass: "rosepose2308"
+                },
+            })
+
+            if(!transporter){
+                res.status(400).send("Mailer transporter isn't firing correctly.")
+            }
+
+            const info = await transporter.sendMail({
+                from: "K.Jarmke@gmail.com",
+                to: updatedUser.email,
+                subject: "Order Confirmation",
+                text: "Hey There! Thank you for ordering with Jarmke Jewellery. Please find confirmation below.",
+                html: "<b>Hey There!</b><br> Thank you for ordering with Jarmke Jewellery. Please find confirmation below.</br>"
+            })
+
+            if(!info){
+                res.status(400).send("Email couldn't be sent.")
+            }
+
+            console.log("email successful", info)
+
             res.status(202).send(updatedUser)
 
         } catch(error){
@@ -88,7 +117,8 @@ router.post(
             const intent = await stripe.paymentIntents.create({
                 amount: amountInt,
                 currency,
-                metadata: {integration_check: 'accept_a_payment'},
+                metadata: {integration_check: "accept_a_payment"},
+                payment_method_types: ["card", "ideal"],
             })
             // console.log("what happened here", intent)
             if(!intent){
