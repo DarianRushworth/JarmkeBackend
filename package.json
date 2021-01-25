@@ -23,6 +23,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "nice-invoice": "^1.0.6",
+    "nodemailer": "^6.4.17",
     "pg": "^8.3.0",
     "postgres": "^1.0.2",
     "sequelize": "^6.3.4",
